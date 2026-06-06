@@ -35,6 +35,18 @@ from utils.config import AppConfig, load_accounts_config
 RESULT_PREFIX = 'GA_DIAG_RESULT '
 
 
+def env_int(name: str, default: int) -> int:
+	"""Parse an integer env var, treating unset/blank/invalid as default."""
+	value = os.getenv(name)
+	if value is None or value.strip() == '':
+		return default
+	try:
+		return int(value)
+	except ValueError:
+		print(f'[DIAG] Ignoring invalid integer env {name}={value!r}; using {default}', flush=True)
+		return default
+
+
 def safe_text(value: Any, max_len: int = 500) -> str:
 	text = '' if value is None else str(value)
 	text = re.sub(r'[\r\n\t]+', ' ', text)
@@ -229,7 +241,7 @@ def run_parent(timeout_sec: int) -> int:
 def main() -> None:
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--one', type=int, default=None)
-	parser.add_argument('--timeout', type=int, default=int(os.getenv('GA_DIAG_ACCOUNT_TIMEOUT', '180')))
+	parser.add_argument('--timeout', type=int, default=env_int('GA_DIAG_ACCOUNT_TIMEOUT', 180))
 	args = parser.parse_args()
 	if args.one is not None:
 		raise SystemExit(asyncio.run(run_one(args.one)))
