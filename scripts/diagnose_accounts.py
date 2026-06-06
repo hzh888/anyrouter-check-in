@@ -20,7 +20,14 @@ import subprocess
 import sys
 import time
 from datetime import datetime
+from pathlib import Path
 from typing import Any
+
+# When executed as scripts/diagnose_accounts.py, sys.path[0] is scripts/.
+# Add the repository root so checkin.py and utils/ are importable in GitHub Actions.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+	sys.path.insert(0, str(REPO_ROOT))
 
 from checkin import check_in_account
 from utils.config import AppConfig, load_accounts_config
