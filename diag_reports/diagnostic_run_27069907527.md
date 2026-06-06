@@ -2,7 +2,7 @@
 
 - Run: https://github.com/shenhao-stu/anyrouter-check-in/actions/runs/27069907527
 - Generated: 2026-06-07T02:24:36
-- Summary: total=42, success=32, failed=25, timeouts=1, login_ok=14, login_bad=27
+- Summary: total=42, success=16, failed=25, timeouts=1, login_ok=14, login_bad=27
 - Secret policy: raw logs are not published; this report redacts api_user/token/cookie/auth-like values.
 
 ## Account results
