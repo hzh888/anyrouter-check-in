@@ -6,9 +6,6 @@ on:
         description: 'Per-account timeout seconds'
         required: false
         default: '180'
-  push:
-    branches:
-      - ga-diagnostic-timeout-20260607
 
 jobs:
   diagnose:
